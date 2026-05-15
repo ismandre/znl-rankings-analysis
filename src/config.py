@@ -1,8 +1,12 @@
 """Configuration constants for NK Hajduk 1932 dashboard."""
+import os
+
+# Get the project root directory (parent of src/)
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 CLUB_NAME = "NK Hajduk 1932"
-DATA_DIR = "/Users/andreism/me/znl-rankings-analysis/data"
-ASSETS_DIR = "/Users/andreism/me/znl-rankings-analysis/assets"
+DATA_DIR = os.path.join(PROJECT_ROOT, "data")
+ASSETS_DIR = os.path.join(PROJECT_ROOT, "assets")
 
 # Season classifications
 FIRST_DIVISION_SEASONS = [
