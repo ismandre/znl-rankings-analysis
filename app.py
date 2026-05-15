@@ -74,7 +74,26 @@ def load_overview_data():
     first_div = prepare_first_division_summary()
     return first_div
 
-first_div_df = load_overview_data()
+try:
+    first_div_df = load_overview_data()
+
+    # Check if data was loaded successfully
+    if first_div_df.empty:
+        st.error("Podaci nisu učitani. Molimo provjerite da li CSV datoteke postoje u 'data/' direktoriju.")
+        st.stop()
+
+    # Verify required columns exist
+    required_cols = ['season', 'position', 'goals_for', 'goals_against', 'points', 'played']
+    missing_cols = [col for col in required_cols if col not in first_div_df.columns]
+    if missing_cols:
+        st.error(f"Nedostaju kolone u podacima: {', '.join(missing_cols)}")
+        st.info(f"Dostupne kolone: {', '.join(first_div_df.columns.tolist())}")
+        st.stop()
+
+except Exception as e:
+    st.error(f"Greška pri učitavanju podataka: {str(e)}")
+    st.info("Molimo provjerite da li su svi CSV fajlovi prisutni u 'data/' direktoriju.")
+    st.stop()
 
 # Overview KPIs
 st.markdown("## 📊 Brzi pregled")
